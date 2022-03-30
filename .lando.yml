@@ -1,0 +1,28 @@
+name: landotemplate
+recipe: drupal9
+SITE_URL: "https://landotemplate.lndo.site"
+config:
+  webroot: web
+  php: "8.0"
+tooling:
+  drush:
+    service: appserver
+    env:
+      DRUSH_OPTIONS_URI: SITE_URL
+  install:
+    description: install project
+    cmd:
+      - appserver: composer install
+      - appserver: drush --uri=SITE_URL cr
+  clear-cache:
+    description: clear cache
+    cmd:
+      - appserver: drush --uri=SITE_URL cr
+  export:
+    description: export configuration
+    cmd:
+      - appserver: drush --uri=SITE_URL cex
+  import:
+    description: import configuration
+    cmd:
+      - appserver: drush --uri=SITE_URL cim
